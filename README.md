@@ -38,7 +38,7 @@ Alternatively if you want to turn the caching off completely, you can use the be
 mcversions.setCacheTime(0);
 ````
 
-Be warned that if you are calling 2 calls close together that they both may fetch from Mojang and not use tha cache simply because the first call hasn't had a chance to make the HTTP request and cache the versions yet.
+Be warned that if you are calling 2 calls close together that they both may fetch from Mojang and not use the cache simply because the first call hasn't had a chance to make the HTTP request and cache the versions yet.
 
 If you wish to make sure the cache is valid before making any of the calls to this module, you can use the below command to do so:
 
