@@ -23,7 +23,8 @@ var _ = require('lodash');
 var moment = require('moment');
 
 var BASE_URL = 'https://s3.amazonaws.com/Minecraft.Download/versions/';
-var MINUTES_TO_CACHE = 1;
+var LIBRARIES_BASE_URL = 'https://libraries.minecraft.net/';
+var MINUTES_TO_CACHE = 10;
 
 module.exports = {
     /**
@@ -185,6 +186,86 @@ module.exports = {
             }
 
             return callback(null, _.find(res.versions, {id: version}));
+        });
+    },
+
+    /**
+     * Gets details information about a given Minecraft version including it's libraries, Minecraft arguments and more.
+     *
+     * @param {string} version
+     * @param {function} callback
+     */
+    getVersionInfo: function (version, callback) {
+        this.getVersions(function (err, res) {
+            if (err) {
+                return callback(err);
+            }
+
+            var ver = _.find(res.versions, {id: version});
+
+            if (ver == null) {
+                return callback(new Error('No version found with the ID of ' + version + '!'));
+            }
+
+            return request.get({
+                url: ver.url.json,
+                json: true
+            }, function (err, res, body) {
+                if (err) {
+                    return callback(err);
+                }
+
+                // Parse all the library information to get URL's
+                _.forEach(body.libraries, function (library) {
+                    var parts = library.name.split(':');
+                    var url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '.jar';
+
+                    if (typeof library.natives != 'undefined') {
+                        library.url = {};
+
+                        if (typeof library.natives.linux != 'undefined') {
+                            url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.linux + '.jar';
+
+                            if (url.indexOf("${arch}") > -1) {
+                                library.url.linux = {
+                                    thirtytwo: url.replace('${arch}', '32'),
+                                    sixtyfour: url.replace('${arch}', '64')
+                                };
+                            } else {
+                                library.url.linux = url;
+                            }
+                        }
+                        if (typeof library.natives.osx != 'undefined') {
+                            url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.osx + '.jar';
+
+                            if (url.indexOf("${arch}") > -1) {
+                                library.url.osx = {
+                                    thirtytwo: url.replace('${arch}', '32'),
+                                    sixtyfour: url.replace('${arch}', '64')
+                                };
+                            } else {
+                                library.url.osx = url;
+                            }
+                        }
+                        if (typeof library.natives.windows != 'undefined') {
+                            url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.windows + '.jar';
+
+                            if (url.indexOf("${arch}") > -1) {
+                                library.url.windows = {
+                                    thirtytwo: url.replace('${arch}', '32'),
+                                    sixtyfour: url.replace('${arch}', '64')
+                                };
+                            } else {
+                                library.url.windows = url;
+                            }
+                        }
+                    } else {
+                        library.url = url;
+                    }
+                });
+
+                return callback(null, body);
+            });
         });
     },
 

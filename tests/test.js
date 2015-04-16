@@ -50,9 +50,17 @@ mcversions.ensureCache(function () {
         assert.ifError(err);
     });
 
-    mcversions.getVersion('1.2.5', function (err, res) {
+    mcversions.getVersion('1.7.10', function (err, res) {
         assert.ifError(err);
 
-        assert.equal(res.id, "1.2.5")
+        assert.equal(res.id, '1.7.10')
+    });
+
+    mcversions.getVersionInfo('1.7.10', function (err, res) {
+        assert.ifError(err);
+
+        assert.equal(res.id, '1.7.10');
+        assert.equal(res.minimumLauncherVersion, 13);
+        assert.equal(res.assets, '1.7.10');
     });
 });
