@@ -60,6 +60,7 @@ mcversions.getAllVersions(function (err, versions) {
     
     console.log(versions);
 });
+````
 
 To get information about a specific Minecraft version including links to the client/server jar:
 
@@ -71,6 +72,7 @@ mcversions.getAllVersions('1.7.10', function (err, version) {
     
     console.log(version);
 });
+````
 
 To get information about a the latest Minecraft version including links to the client/server jar:
 

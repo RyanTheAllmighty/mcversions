@@ -1,6 +1,6 @@
 {
   "name": "mcversions",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A NodeJS module to query Minecraft versions.",
   "main": "index.js",
   "scripts": {
