@@ -108,7 +108,7 @@ Please note that sometimes not all libraries are required on all platforms so th
             },
             extract: {
                 exclude: [
-                    META-INF/"
+                    "META-INF/"
                 ]
             },
             url: {
