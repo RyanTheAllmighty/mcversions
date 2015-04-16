@@ -51,8 +51,8 @@ mcversions.getLatestReleaseVersion(function (err, res) {
 
 mcversions.getVersion('1.2.5', function (err, res) {
     assert.ifError(err);
-    
-    assert.equal(res, {
+
+    assert.deepEqual(res, {
         id: "1.2.5",
         time: "2013-08-06T13:00:00+02:00",
         releaseTime: "2012-03-30T00:00:00+02:00",

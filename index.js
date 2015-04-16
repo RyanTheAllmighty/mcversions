@@ -129,7 +129,7 @@ module.exports = {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {id: version}));
+            return callback(null, _.find(body.versions, {id: version}));
         });
     },
 
@@ -147,7 +147,7 @@ module.exports = {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {id: body.latest.release}));
+            return callback(null, _.find(body.versions, {id: body.latest.release}));
         });
     },
 
@@ -165,7 +165,7 @@ module.exports = {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {id: body.latest.snapshot}));
+            return callback(null, _.find(body.versions, {id: body.latest.snapshot}));
         });
     }
 };
