@@ -50,3 +50,36 @@ mcversions.ensureCached(function() {
 
 Examples
 ----
+To get a list of all the versions available:
+
+````javascript
+mcversions.getAllVersions(function (err, versions) {
+    if (err) {
+        return console.error(err);
+    }
+    
+    console.log(versions);
+});
+
+To get information about a specific Minecraft version including links to the client/server jar:
+
+````javascript
+mcversions.getAllVersions('1.7.10', function (err, version) {
+    if (err) {
+        return console.error(err);
+    }
+    
+    console.log(version);
+});
+
+To get information about a the latest Minecraft version including links to the client/server jar:
+
+````javascript
+mcversions.getLatestReleaseVersion(function (err, version) {
+    if (err) {
+        return console.error(err);
+    }
+    
+    console.log(version);
+});
+````
