@@ -23,7 +23,7 @@ var _ = require('lodash');
 var moment = require('moment');
 
 var BASE_URL = 'https://s3.amazonaws.com/Minecraft.Download/versions/';
-var MINUTES_TO_CACHE = 10;
+var MINUTES_TO_CACHE = 1;
 
 module.exports = {
     /**
@@ -47,6 +47,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Ensures that the cache has been made before running the callback.
+     *
+     * @param {function} callback
+     */
     ensureCache: function (callback) {
         this.getVersions(callback);
     },
@@ -58,7 +63,7 @@ module.exports = {
      */
     getVersions: function (callback) {
         // Check if the versions have been cached or not yet.
-        if (this.cached_versions == null || MINUTES_TO_CACHE == 0 || (this.cached_at != null && moment().diff(this.cached_at, 'minutes') > MINUTES_TO_CACHE)) {
+        if (this.cached_versions == null || MINUTES_TO_CACHE == 0 || (this.cached_at != null && moment().diff(this.cached_at, 'minutes') >= MINUTES_TO_CACHE)) {
             var context = this;
 
             return request.get({
