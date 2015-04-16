@@ -218,13 +218,13 @@ module.exports = {
                 // Parse all the library information to get URL's
                 _.forEach(body.libraries, function (library) {
                     var parts = library.name.split(':');
-                    var url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '.jar';
+                    var url = LIBRARIES_BASE_URL + parts[0].split(".").join("/") + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '.jar';
 
                     if (typeof library.natives != 'undefined') {
                         library.url = {};
 
                         if (typeof library.natives.linux != 'undefined') {
-                            url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.linux + '.jar';
+                            url = LIBRARIES_BASE_URL + parts[0].split(".").join("/") + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.linux + '.jar';
 
                             if (url.indexOf("${arch}") > -1) {
                                 library.url.linux = {
@@ -236,7 +236,7 @@ module.exports = {
                             }
                         }
                         if (typeof library.natives.osx != 'undefined') {
-                            url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.osx + '.jar';
+                            url = LIBRARIES_BASE_URL + parts[0].split(".").join("/") + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.osx + '.jar';
 
                             if (url.indexOf("${arch}") > -1) {
                                 library.url.osx = {
@@ -248,7 +248,7 @@ module.exports = {
                             }
                         }
                         if (typeof library.natives.windows != 'undefined') {
-                            url = LIBRARIES_BASE_URL + parts[0].replace('.', '/') + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.windows + '.jar';
+                            url = LIBRARIES_BASE_URL + parts[0].split(".").join("/") + '/' + parts[1] + '/' + parts[2] + '/' + parts[1] + '-' + parts[2] + '-' + library.natives.windows + '.jar';
 
                             if (url.indexOf("${arch}") > -1) {
                                 library.url.windows = {
