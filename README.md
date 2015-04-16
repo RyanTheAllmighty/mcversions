@@ -62,7 +62,7 @@ An example of the data returned using 1.7.10 can be found below:
     time: "2014-05-14T19:29:23+02:00",
     releaseTime: "2014-05-14T19:29:23+02:00",
     type: "release",
-    url": {
+    url: {
         client: "https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/1.7.10.jar",
         server: "https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/minecraft_server.1.7.10.jar",
         json: "https://s3.amazonaws.com/Minecraft.Download/versions/1.7.10/1.7.10.json"
