@@ -69,6 +69,18 @@ module.exports = {
                     return callback(err);
                 }
 
+                // Add in our own stuff
+                _.forEach(body.versions, function (version) {
+                    version.url = {};
+                    version.url.client = BASE_URL + version.id + '/' + version.id + '.jar';
+
+                    if (version.type == 'release' && !_.includes(['1.2.4', '1.2.3', '1.2.2', '1.2.1', '1.1', '1.0'], version.id)) {
+                        version.url.server = BASE_URL + version.id + '/minecraft_server.' + version.id + '.jar';
+                    }
+
+                    version.url.json = BASE_URL + version.id + '/' + version.id + '.json';
+                });
+
                 context.cached_versions = body;
                 context.cached_at = moment();
 
