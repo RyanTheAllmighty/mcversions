@@ -112,9 +112,9 @@ Please note that sometimes not all libraries are required on all platforms so th
                 ]
             },
             url: {
-                linux: "https://libraries.minecraft.net/org/lwjgl.lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-linux.jar",
-                osx: "https://libraries.minecraft.net/org/lwjgl.lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-osx.jar",
-                windows: "https://libraries.minecraft.net/org/lwjgl.lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-windows.jar"
+                linux: "https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-linux.jar",
+                osx: "https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-osx.jar",
+                windows: "https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-windows.jar"
             }
         },
         {

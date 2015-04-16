@@ -1,27 +1,27 @@
 {
-  "name": "mcversions",
-  "version": "1.0.1",
-  "description": "A NodeJS module to query Minecraft versions.",
-  "main": "index.js",
-  "scripts": {
-    "test": "node tests/test.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/RyanTheAllmighty/mcversions.git"
-  },
-  "keywords": [
-    "minecraft"
-  ],
-  "author": "RyanTheAllmighty",
-  "license": "GPLv3",
-  "bugs": {
-    "url": "https://github.com/RyanTheAllmighty/mcversions/issues"
-  },
-  "homepage": "https://github.com/RyanTheAllmighty/mcversions",
-  "dependencies": {
-    "lodash": "^3.6.0",
-    "moment": "^2.10.2",
-    "request": "^2.55.0"
-  }
+    "name": "mcversions",
+    "version": "1.0.1",
+    "description": "A NodeJS module to query Minecraft versions.",
+    "main": "index.js",
+    "scripts": {
+        "test": "node tests/test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/RyanTheAllmighty/mcversions.git"
+    },
+    "keywords": [
+        "minecraft"
+    ],
+    "author": "RyanTheAllmighty",
+    "license": "GPLv3",
+    "bugs": {
+        "url": "https://github.com/RyanTheAllmighty/mcversions/issues"
+    },
+    "homepage": "https://github.com/RyanTheAllmighty/mcversions",
+    "dependencies": {
+        "lodash": "^3.6.0",
+        "moment": "^2.10.2",
+        "request": "^2.55.0"
+    }
 }
