@@ -21,41 +21,43 @@
 var mcversions = require('../index');
 var assert = require('assert');
 
-mcversions.getAllVersions(function (err, res) {
-    assert.ifError(err);
-});
+mcversions.ensureCache(function () {
+    mcversions.getAllVersions(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getAlphaVersions(function (err, res) {
-    assert.ifError(err);
-});
+    mcversions.getAlphaVersions(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getBetaVersions(function (err, res) {
-    assert.ifError(err);
-});
+    mcversions.getBetaVersions(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getSnapshotVersions(function (err, res) {
-    assert.ifError(err);
-});
+    mcversions.getSnapshotVersions(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getReleaseVersions(function (err, res) {
-    assert.ifError(err);
-});
+    mcversions.getReleaseVersions(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getLatestSnapshotVersion(function (err, res) {
-    assert.ifError(err);
-});
+    mcversions.getLatestSnapshotVersion(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getLatestReleaseVersion(function (err, res) {
-    assert.ifError(err);
-});
+    mcversions.getLatestReleaseVersion(function (err) {
+        assert.ifError(err);
+    });
 
-mcversions.getVersion('1.2.5', function (err, res) {
-    assert.ifError(err);
+    mcversions.getVersion('1.2.5', function (err, res) {
+        assert.ifError(err);
 
-    assert.deepEqual(res, {
-        id: "1.2.5",
-        time: "2013-08-06T13:00:00+02:00",
-        releaseTime: "2012-03-30T00:00:00+02:00",
-        type: "release"
-    })
+        assert.deepEqual(res, {
+            id: "1.2.5",
+            time: "2013-08-06T13:00:00+02:00",
+            releaseTime: "2012-03-30T00:00:00+02:00",
+            type: "release"
+        })
+    });
 });

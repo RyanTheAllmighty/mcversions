@@ -20,25 +20,78 @@
 
 var request = require('request');
 var _ = require('lodash');
+var moment = require('moment');
 
 var BASE_URL = 'https://s3.amazonaws.com/Minecraft.Download/versions/';
+var MINUTES_TO_CACHE = 10;
 
 module.exports = {
+    /**
+     * The versions.json file returned from Mojang if it's been cached.
+     */
+    cached_versions: null,
+
+    /**
+     * When the cached versions.json file above was fetched from Mojang (if caching is enabled).
+     */
+    cached_at: null,
+
+    /**
+     * Sets the number of minutes to cache the versions returned from Mojang. Can be set to 0 for caching to be turned off.
+     *
+     * @param {number} minutes
+     */
+    setCacheTime: function (minutes) {
+        if (typeof minutes == 'number' && minutes >= 0) {
+            MINUTES_TO_CACHE = minutes;
+        }
+    },
+
+    ensureCache: function (callback) {
+        this.getVersions(callback);
+    },
+
+    /**
+     * Gets the versions file from Mojang and caches it for use in future calls if it hasn't been already.
+     *
+     * @param {function} callback
+     */
+    getVersions: function (callback) {
+        // Check if the versions have been cached or not yet.
+        if (this.cached_versions == null || MINUTES_TO_CACHE == 0 || (this.cached_at != null && moment().diff(this.cached_at, 'minutes') > MINUTES_TO_CACHE)) {
+            var context = this;
+
+            return request.get({
+                url: BASE_URL + "versions.json",
+                json: true
+            }, function (err, res, body) {
+                if (err) {
+                    return callback(err);
+                }
+
+                context.cached_versions = body;
+                context.cached_at = moment();
+
+                return callback(null, context.cached_versions);
+            });
+        }
+
+        // We have already cached it so use that.
+        return callback(null, this.cached_versions);
+    },
+
     /**
      * Gets all the versions of Minecraft.
      *
      * @param {function} callback
      */
     getAllVersions: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, body.versions);
+            return callback(null, res.versions);
         });
     },
 
@@ -48,15 +101,12 @@ module.exports = {
      * @param {function} callback
      */
     getReleaseVersions: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {type: 'release'}));
+            return callback(null, _.filter(res.versions, {type: 'release'}));
         });
     },
 
@@ -66,15 +116,12 @@ module.exports = {
      * @param {function} callback
      */
     getSnapshotVersions: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {type: 'snapshot'}));
+            return callback(null, _.filter(res.versions, {type: 'snapshot'}));
         });
     },
 
@@ -84,15 +131,12 @@ module.exports = {
      * @param {function} callback
      */
     getBetaVersions: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {type: 'old_beta'}));
+            return callback(null, _.filter(res.versions, {type: 'old_beta'}));
         });
     },
 
@@ -102,15 +146,12 @@ module.exports = {
      * @param {function} callback
      */
     getAlphaVersions: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.filter(body.versions, {type: 'old_alpha'}));
+            return callback(null, _.filter(res.versions, {type: 'old_alpha'}));
         });
     },
 
@@ -121,15 +162,12 @@ module.exports = {
      * @param {function} callback
      */
     getVersion: function (version, callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.find(body.versions, {id: version}));
+            return callback(null, _.find(res.versions, {id: version}));
         });
     },
 
@@ -139,15 +177,12 @@ module.exports = {
      * @param {function} callback
      */
     getLatestReleaseVersion: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.find(body.versions, {id: body.latest.release}));
+            return callback(null, _.find(res.versions, {id: res.latest.release}));
         });
     },
 
@@ -157,15 +192,12 @@ module.exports = {
      * @param {function} callback
      */
     getLatestSnapshotVersion: function (callback) {
-        request.get({
-            url: BASE_URL + "versions.json",
-            json: true
-        }, function (err, res, body) {
+        this.getVersions(function (err, res) {
             if (err) {
                 return callback(err);
             }
 
-            return callback(null, _.find(body.versions, {id: body.latest.snapshot}));
+            return callback(null, _.find(res.versions, {id: res.latest.snapshot}));
         });
     }
 };
