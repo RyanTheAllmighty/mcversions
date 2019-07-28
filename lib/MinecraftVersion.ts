@@ -48,14 +48,14 @@ export interface LibraryDownloads {
 }
 
 export enum RuleAction {
-    'allow',
-    'disallow',
+    allow = 'allow',
+    disallow = 'disallow',
 }
 
 export enum OSName {
-    'windows',
-    'osx',
-    'linux',
+    windows = 'windows',
+    osx = 'osx',
+    linux = 'linux',
 }
 
 export interface RuleOS {
@@ -97,10 +97,10 @@ export interface Logging {
 }
 
 export enum Type {
-    'release',
-    'snapshop',
-    'old_beta',
-    'old_alpha',
+    release = 'release',
+    snapshop = 'snapshop',
+    old_beta = 'old_beta',
+    old_alpha = 'old_alpha',
 }
 
 export default interface MinecraftVersion {
