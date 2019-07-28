@@ -19,7 +19,7 @@ yarn add mcversions
 To start using this package it's as simply as requiring it:
 
 ````js
-var mcversions = require('mcversions');
+import mcversions from 'mcversions';
 ````
 
 There are no arguments to pass in or anything. Just set it and go!
