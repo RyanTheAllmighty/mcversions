@@ -1,5 +1,12 @@
-# Node modules
-node_modules
+# dependencies
+/node_modules
 
-# IntelliJ project files
-.idea
+# misc
+npm-debug.log
+.DS_Store
+
+# tests
+/coverage
+
+# dist
+/dist
