@@ -20,7 +20,7 @@
     },
     "homepage": "https://github.com/RyanTheAllmighty/mcversions",
     "dependencies": {
-        "lodash": "^3.6.0",
+        "lodash": "^4.17.15",
         "moment": "^2.10.2",
         "request": "^2.55.0"
     }
